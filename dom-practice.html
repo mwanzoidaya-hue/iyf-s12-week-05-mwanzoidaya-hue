@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOM Practice — Lessons 9 &amp; 10</title>
+  <style>
+    :root { font-family: system-ui, sans-serif; color: #20233a; background: #f5f6fa; }
+    body { max-width: 900px; margin: 0 auto; padding: 24px; }
+    header, main, footer, section, article, .demo-box { padding: 16px; border: 1px solid #dcdce7; border-radius: 10px; background: white; }
+    header, main, footer, section { margin-bottom: 16px; }
+    .nav-list { display: flex; gap: 18px; }
+    .content { color: #56566b; }
+    .highlight { background: #fff2bd; }
+    .completed { text-decoration: line-through; color: #858598; }
+    .error { border-color: #c53f48; }
+    .error-message { min-height: 1.3em; color: #c53f48; font-size: 0.85rem; }
+    .success-message { color: #26836b; }
+    button, input { margin: 4px; padding: 8px 10px; }
+    .item-list { padding-left: 24px; }
+    .item-list li { padding: 4px; }
+    a { color: #5b4bc4; }
+  </style>
+</head>
+<body>
+  <header id="main-header">
+    <h1>DOM Practice</h1>
+    <nav aria-label="Practice navigation">
+      <ul class="nav-list">
+        <li><a href="#article" class="nav-link">Home</a></li>
+        <li><a href="#form-section" class="nav-link">About</a></li>
+        <li><a href="#event-practice" class="nav-link">Contact</a></li>
+      </ul>
+      <button type="button" id="remove-generated-links">Remove generated links</button>
+    </nav>
+  </header>
+
+  <main class="container">
+    <article id="article">
+      <h2 class="title">Article Title</h2>
+      <p class="content">This is the first paragraph.</p>
+      <p class="content">This is the second paragraph.</p>
+    </article>
+    <section id="form-section">
+      <h2>Form Section</h2>
+      <form id="contact-form" novalidate>
+        <label for="name">Name</label>
+        <input type="text" id="name" name="name" placeholder="Your name" aria-describedby="name-error">
+        <span class="error-message" id="name-error"></span>
+        <br>
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" placeholder="you@example.com" aria-describedby="email-error">
+        <span class="error-message" id="email-error"></span>
+        <br>
+        <button type="submit">Submit</button>
+        <p id="form-result" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <section id="event-practice">
+    <h2>10.1 — Click counter</h2>
+    <p>Count: <output id="counter-value">0</output></p>
+    <button type="button" id="decrement">−</button>
+    <button type="button" id="increment">+</button>
+    <button type="button" id="reset-counter">Reset</button>
+
+    <h2>10.2 — Keyboard shortcuts</h2>
+    <p>Ctrl+S shows a saved message; Escape clears the form; Ctrl+Enter submits it.</p>
+    <p id="shortcut-message" aria-live="polite"></p>
+
+    <h2>10.3 — Event delegation</h2>
+    <form id="item-form">
+      <label for="item-input">Add a list item</label>
+      <input id="item-input" type="text" placeholder="New item">
+      <button type="submit">Add item</button>
+    </form>
+    <ul class="item-list" id="item-list">
+      <li><span>Click this item to complete it</span> <button type="button" data-action="delete">Delete</button></li>
+    </ul>
+  </section>
+
+  <footer>
+    <p>DOM practice page · <a href="index.html">Back to the To-Do List</a></p>
+  </footer>
+  <script src="dom.js"></script>
+</body>
+</html>

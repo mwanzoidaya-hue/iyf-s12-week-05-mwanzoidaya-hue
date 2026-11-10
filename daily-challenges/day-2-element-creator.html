@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 2 — Dynamic Element Creator</title>
+  <style>
+    body { max-width: 680px; margin: 48px auto; padding: 0 20px; font: 16px/1.6 system-ui, sans-serif; color: #25243a; }
+    button { padding: 7px 11px; border: 0; border-radius: 7px; background: #6858dc; color: white; font: inherit; cursor: pointer; }
+    .paragraph-row { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 8px 0; border-bottom: 1px solid #eee; }
+    .delete { background: #f5eeee; color: #9c4545; }
+    a { color: #5b4bc4; }
+  </style>
+</head>
+<body>
+  <p><a href="../index.html">← To-Do List</a></p>
+  <h1>Day 2: Dynamic Element Creator</h1>
+  <button id="add-paragraph" type="button">Add a paragraph</button>
+  <div id="paragraphs" aria-live="polite"></div>
+  <script>
+    const addButton = document.querySelector("#add-paragraph");
+    const paragraphContainer = document.querySelector("#paragraphs");
+    let paragraphCount = 0;
+
+    addButton.addEventListener("click", () => {
+      paragraphCount += 1;
+      const row = document.createElement("div");
+      row.classList.add("paragraph-row");
+      const paragraph = document.createElement("p");
+      paragraph.textContent = `This is paragraph ${paragraphCount}.`;
+      const removeButton = document.createElement("button");
+      removeButton.classList.add("delete");
+      removeButton.type = "button";
+      removeButton.textContent = "Delete";
+      removeButton.addEventListener("click", () => row.remove());
+      row.append(paragraph, removeButton);
+      paragraphContainer.append(row);
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 1 — Color Changer</title>
+  <style>
+    body { max-width: 680px; margin: 48px auto; padding: 0 20px; font: 16px/1.6 system-ui, sans-serif; color: #25243a; }
+    button { padding: 10px 15px; border: 0; border-radius: 8px; background: #6858dc; color: white; font: inherit; cursor: pointer; }
+    a { color: #5b4bc4; }
+    h1.colored-heading, h2.colored-heading, h3.colored-heading { color: var(--heading-color); }
+  </style>
+</head>
+<body>
+  <p><a href="../index.html">← To-Do List</a></p>
+  <h1>Day 1: Color Changer</h1>
+  <h2>Make the page your color</h2>
+  <h3>Click to change every heading</h3>
+  <button id="change-color" type="button">Pick a random color</button>
+  <p id="color-value" aria-live="polite">Current color: default</p>
+  <script>
+    const colorButton = document.querySelector("#change-color");
+    const colorValue = document.querySelector("#color-value");
+    const colorStyle = document.createElement("style");
+    colorButton.addEventListener("click", () => {
+      const color = `#${Math.floor(Math.random() * 0x1000000).toString(16).padStart(6, "0")}`;
+      document.querySelectorAll("h1, h2, h3").forEach((heading) => {
+        heading.classList.add("colored-heading");
+      });
+      colorStyle.textContent = `:root { --heading-color: ${color}; }`;
+      document.head.append(colorStyle);
+      colorValue.textContent = `Current color: ${color}`;
+    });
+  </script>
+</body>
+</html>

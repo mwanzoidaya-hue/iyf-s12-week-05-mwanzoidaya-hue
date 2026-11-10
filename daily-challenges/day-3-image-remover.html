@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 3 — Image Remover</title>
+  <style>
+    body { max-width: 680px; margin: 48px auto; padding: 0 20px; font: 16px/1.6 system-ui, sans-serif; color: #25243a; }
+    button { margin-right: 8px; padding: 9px 13px; border: 0; border-radius: 7px; background: #6858dc; color: white; font: inherit; cursor: pointer; }
+    .samples { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 22px; }
+    .sample { display: grid; width: 150px; height: 100px; place-items: center; border-radius: 10px; background: linear-gradient(135deg, #f8d7a3, #c8c0ff); color: #28233e; font-weight: 700; }
+    .sample:nth-child(2) { background: linear-gradient(135deg, #b9e8d2, #c1d9ff); }
+    .sample:nth-child(3) { background: linear-gradient(135deg, #ffc4cf, #ffe9a7); }
+    a { color: #5b4bc4; }
+  </style>
+</head>
+<body>
+  <p><a href="../index.html">← To-Do List</a></p>
+  <h1>Day 3: Image Remover</h1>
+  <button id="remove-images" type="button">Remove images</button>
+  <button id="toggle-images" type="button">Hide images</button>
+  <div class="samples" aria-label="Sample images">
+    <img class="sample" alt="Abstract warm gradient image" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='100'%3E%3Crect width='150' height='100' fill='%23f8d7a3'/%3E%3C/svg%3E">
+    <img class="sample" alt="Abstract cool gradient image" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='100'%3E%3Crect width='150' height='100' fill='%23b9e8d2'/%3E%3C/svg%3E">
+    <img class="sample" alt="Abstract pink gradient image" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='150' height='100'%3E%3Crect width='150' height='100' fill='%23ffc4cf'/%3E%3C/svg%3E">
+  </div>
+  <script>
+    const removeImagesButton = document.querySelector("#remove-images");
+    const toggleImagesButton = document.querySelector("#toggle-images");
+    let imagesHidden = false;
+
+    removeImagesButton.addEventListener("click", () => {
+      document.querySelectorAll("img").forEach((image) => image.remove());
+      toggleImagesButton.disabled = true;
+    });
+
+    toggleImagesButton.addEventListener("click", () => {
+      imagesHidden = !imagesHidden;
+      document.querySelectorAll("img").forEach((image) => {
+        image.classList.toggle("is-hidden", imagesHidden);
+        image.hidden = imagesHidden;
+      });
+      toggleImagesButton.textContent = imagesHidden ? "Show images" : "Hide images";
+    });
+  </script>
+</body>
+</html>

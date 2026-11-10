@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Day 4 — Content Copier</title>
+  <style>
+    body { max-width: 680px; margin: 48px auto; padding: 0 20px; font: 16px/1.6 system-ui, sans-serif; color: #25243a; }
+    .panels { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .panel { min-height: 130px; padding: 16px; border: 1px solid #dedde9; border-radius: 10px; background: white; }
+    .target { background: #f8f7ff; }
+    button { margin: 14px 0; padding: 9px 14px; border: 0; border-radius: 7px; background: #6858dc; color: white; font: inherit; cursor: pointer; }
+    @media (max-width: 520px) { .panels { grid-template-columns: 1fr; } }
+    a { color: #5b4bc4; }
+  </style>
+</head>
+<body>
+  <p><a href="../index.html">← To-Do List</a></p>
+  <h1>Day 4: Content Copier</h1>
+  <div class="panels">
+    <div class="panel" id="source" draggable="true">
+      <h2>Source</h2>
+      <p>This text is copied to the target panel.</p>
+    </div>
+    <div class="panel target" id="target" aria-label="Copy destination">
+      <h2>Target</h2>
+      <p>Copied content will appear here.</p>
+    </div>
+  </div>
+  <button id="copy-content" type="button">Copy content</button>
+  <script>
+    const source = document.querySelector("#source");
+    const target = document.querySelector("#target");
+    const copyButton = document.querySelector("#copy-content");
+    let draggedText = "";
+
+    function copySourceContent() {
+      target.replaceChildren();
+      source.querySelectorAll("h2, p").forEach((sourceElement) => {
+        const copy = document.createElement(sourceElement.tagName.toLowerCase());
+        copy.textContent = sourceElement.textContent;
+        target.append(copy);
+      });
+    }
+
+    copyButton.addEventListener("click", copySourceContent);
+    source.addEventListener("dragstart", (event) => {
+      draggedText = source.querySelector("p").textContent;
+      event.dataTransfer.setData("text/plain", draggedText);
+    });
+    target.addEventListener("dragover", (event) => event.preventDefault());
+    target.addEventListener("drop", (event) => {
+      event.preventDefault();
+      const paragraph = document.createElement("p");
+      paragraph.textContent = event.dataTransfer.getData("text/plain") || draggedText;
+      target.append(paragraph);
+    });
+  </script>
+</body>
+</html>
